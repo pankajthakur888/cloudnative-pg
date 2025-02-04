@@ -14,13 +14,13 @@ spec:
     size: 10Gi # Specify the storage size
     storageClassName: standard # Define the storage class
   standby:
-    replicas: 2 # Define how many standby nodes to create
+    replicas: 1 # Define how many standby nodes to create
   primary:
     # Optional: define primary node specific settings (e.g., resources, affinity, etc.)
   resources:
     requests:
-      memory: "2Gi"
+      memory: "1Gi"
       cpu: "1"
     limits:
-      memory: "4Gi"
+      memory: "2Gi"
       cpu: "2"
