@@ -1,21 +1,26 @@
-apiVersion: postgres.cloudnative-pg.io/v1
+apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: my-postgres-cluster
+  name: my-postgresql-cluster
+  namespace: default
 spec:
-  # Define the number of PostgreSQL instances in the cluster
-  instances: 3
-  # Define the PostgreSQL version
-  postgresql:
-    version: "14"
-  # Define the resources for the pods (CPU, memory, etc.)
+  replicas: 3 # Number of PostgreSQL pods in the HA setup
+  image: "crunchydata/crunchy-postgres:latest" # Specify your preferred PostgreSQL image
+  port: 5432 # Port for PostgreSQL
+  user: postgres # The default user
+  password: yourpassword # Set the password for the user
+  database: mydatabase # The default database to create
+  storage:
+    size: 10Gi # Specify the storage size
+    storageClassName: standard # Define the storage class
+  standby:
+    replicas: 2 # Define how many standby nodes to create
+  primary:
+    # Optional: define primary node specific settings (e.g., resources, affinity, etc.)
   resources:
     requests:
-      cpu: "500m"
-      memory: "1Gi"
+      memory: "2Gi"
+      cpu: "1"
     limits:
-      cpu: "2"
       memory: "4Gi"
-  # Define persistent storage for the database
-  storage:
-    size: "5Gi"
+      cpu: "2"
