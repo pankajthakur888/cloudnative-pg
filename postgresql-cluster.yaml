@@ -12,7 +12,8 @@ spec:
   storageClassName: standard  # Ensure this matches your PVC's storage class
   hostPath:
     path: "/mnt/data/postgresql"  # Adjust based on your environment or use cloud-based storage
-
+  volumeMode: Filesystem  # Specify volume mode, which should typically be 'Filesystem'
+  persistentVolumeReclaimPolicy: Retain
 ---
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
@@ -20,17 +21,17 @@ metadata:
   name: my-postgresql-cluster
   namespace: default
 spec:
-  replicas: 3 # Number of PostgreSQL pods in the HA setup
-  image: "crunchydata/crunchy-postgres:latest" # Specify your preferred PostgreSQL image
-  port: 5432 # Port for PostgreSQL
-  user: postgres # The default user
-  password: yourpassword # Set the password for the user
-  database: mydatabase # The default database to create
+  replicas: 3  # Number of PostgreSQL pods in the HA setup
+  image: "crunchydata/crunchy-postgres:latest"  # Specify your preferred PostgreSQL image
+  port: 5432  # Port for PostgreSQL
+  user: postgres  # The default user
+  password: yourpassword  # Set the password for the user
+  database: mydatabase  # The default database to create
   storage:
-    size: 10Gi # Specify the storage size
-    storageClassName: standard # Define the storage class
+    size: 10Gi  # Specify the storage size
+    storageClassName: standard  # Define the storage class to match your PV and PVC
   standby:
-    replicas: 1 # Define how many standby nodes to create
+    replicas: 1  # Define how many standby nodes to create
   primary:
     # Optional: define primary node specific settings (e.g., resources, affinity, etc.)
   resources:
