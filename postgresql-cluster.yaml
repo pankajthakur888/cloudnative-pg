@@ -1,20 +1,4 @@
 ---
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: my-postgresql-pv
-spec:
-  capacity:
-    storage: 10Gi  # Adjust based on your needs
-  accessModes:
-    - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: standard  # Ensure this matches your PVC's storage class
-  hostPath:
-    path: "/mnt/data/postgresql"  # Adjust based on your environment or use cloud-based storage
-  volumeMode: Filesystem  # Specify volume mode, which should typically be 'Filesystem'
-  persistentVolumeReclaimPolicy: Retain
----
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
@@ -29,7 +13,7 @@ spec:
   database: mydatabase  # The default database to create
   storage:
     size: 10Gi  # Specify the storage size
-    storageClassName: standard  # Define the storage class to match your PV and PVC
+    storageClassName: standard  # Ensure this matches the storage class in the PersistentVolume
   standby:
     replicas: 1  # Define how many standby nodes to create
   primary:
@@ -41,3 +25,12 @@ spec:
     limits:
       memory: "2Gi"
       cpu: "2"
+
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: standard
+provisioner: kubernetes.io/aws-ebs  # Use this if you are on AWS, change if you're using a different cloud provider
+reclaimPolicy: Retain
+volumeBindingMode: Immediate
