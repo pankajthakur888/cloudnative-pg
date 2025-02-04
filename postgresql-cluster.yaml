@@ -1,0 +1,21 @@
+apiVersion: postgres.cloudnative-pg.io/v1
+kind: Cluster
+metadata:
+  name: my-postgres-cluster
+spec:
+  # Define the number of PostgreSQL instances in the cluster
+  instances: 3
+  # Define the PostgreSQL version
+  postgresql:
+    version: "14"
+  # Define the resources for the pods (CPU, memory, etc.)
+  resources:
+    requests:
+      cpu: "500m"
+      memory: "1Gi"
+    limits:
+      cpu: "2"
+      memory: "4Gi"
+  # Define persistent storage for the database
+  storage:
+    size: "5Gi"
