@@ -12,7 +12,14 @@ spec:
     chart: jenkins
     helm:
       valueFiles:
-        - values.yaml
+        - values.yaml  # Make sure this path is correct or is in your repo
+      values: |
+        persistence:
+          enabled: true
+          storageClass: "standard"  # Adjust storage class if needed
+          size: 10Gi
+          accessMode: ReadWriteOnce
+          mountPath: /var/jenkins_home
   project: default
   syncPolicy:
     automated:
