@@ -7,16 +7,12 @@ spec:
     namespace: jenkins
     server: https://kubernetes.default.svc
   source:
-    path: ''
     repoURL: https://charts.jenkins.io
     targetRevision: 5.8.9
     chart: jenkins
-    directory:
-      recurse: false
     helm:
       valueFiles:
         - values.yaml
-  sources: []
   project: default
   syncPolicy:
     automated:
