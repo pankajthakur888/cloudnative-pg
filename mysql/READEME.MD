@@ -24,7 +24,7 @@ helm install my-mysql-operator mysql-operator/mysql-operator \
 
 ### Option 1: With Self-Signed Certificates
 ```sh
-export NAMESPACE="mysql-operator"
+export NAMESPACE="mysql-innodbclusters"
 helm install my-mysql-innodbcluster mysql-operator/mysql-innodbcluster -n $NAMESPACE \
     --version 2.2.0 \
     --set credentials.root.password=">-0URS4F3P4SS" \
@@ -33,7 +33,7 @@ helm install my-mysql-innodbcluster mysql-operator/mysql-innodbcluster -n $NAMES
 
 ### Option 2: Using Custom CA and TLS Certificates
 ```sh
-export NAMESPACE="mysql-operator"
+export NAMESPACE="mysql-innodbclusters"
 export CLUSTER_NAME="my-mysql-innodbcluster"
 export CA_SECRET="$CLUSTER_NAME-ca-secret"
 export TLS_SECRET="$CLUSTER_NAME-tls-secret"
