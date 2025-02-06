@@ -1,11 +1,11 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: pg
+  name: pg-database
   namespace: argocd
 spec:
   destination:
-    namespace: jenkins
+    namespace: pg
     server: https://kubernetes.default.svc
   source:
     repoURL: https://github.com/pankajthakur888/cloudnative-pg.git
