@@ -6,7 +6,7 @@ spec:
   project: default
   source:
     repoURL: https://charts.jenkins.io
-    targetRevision: 5.8.9
+    targetRevision: 5.8.10
     chart: jenkins
     helm:
       valueFiles:
