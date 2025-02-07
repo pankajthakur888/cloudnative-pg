@@ -24,12 +24,12 @@ spec:
               cpu: "2000m"
               memory: "4096Mi"
           service:
-            type: NodePort
-            nodePort: 32323
+          agentListenerServiceType: NodePort
+          agentListenerNodePort: 32323
 
         persistence:
           enabled: true
-          StorageClass: "managed-nfs-storage"
+          StorageClass: "managed-nfs-storage" 
           size: 10Gi
 
         rbac:
