@@ -1,0 +1,47 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: jenkins
+spec:
+  project: default
+  source:
+    repoURL: https://charts.jenkins.io
+    targetRevision: 5.8.9
+    chart: jenkins
+    helm:
+      valueFiles:
+        - values.yaml
+      values: |
+
+        controller:
+          admin:
+            password: "Admin1234"
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "256Mi"
+            limits:
+              cpu: "2000m"
+              memory: "4096Mi"
+          service:
+            type: NodePort
+            nodePort: 32323
+
+        persistence:
+          enabled: true
+          StorageClass: "managed-nfs-storage"
+          size: 10Gi
+
+        rbac:
+          create: true
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: jenkins
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - PruneLast=true
