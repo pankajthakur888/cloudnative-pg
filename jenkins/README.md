@@ -23,3 +23,11 @@ $ helm install nfs-subdir-external-provisioner nfs-subdir-external-provisioner/n
     --set nfs.server=x.x.x.x \
     --set nfs.path=/exported/path
 ```
+
+```sh
+ bash -x nfs-mount-k8s.sh 
+ kubectl get all
+ helm install nfs-subdir-external-provisioner nfs-subdir-external-provisioner/nfs-subdir-external-provisioner     --set nfs.server=192.168.1.17     --set nfs.path=/nfs/kubedata
+ kubectl get all
+
+```
