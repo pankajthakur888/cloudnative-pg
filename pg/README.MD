@@ -14,6 +14,11 @@ This guide provides steps to verify if **PostgreSQL replication** is working cor
 ## Step 1: Check PostgreSQL Services
 To list all PostgreSQL services, run:
 ```sh
+helm repo add cnpg https://cloudnative-pg.github.io/charts
+
+helm upgrade --install cnpg cnpg/cloudnative-pg \
+    --namespace cnpg-system --create-namespace --wait
+
 kubectl get svc -n pg
 ```
 Expected output:
