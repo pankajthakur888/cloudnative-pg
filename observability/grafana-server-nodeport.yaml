@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: grafana-server-nodeport
+  namespace: observability
+spec:
+  type: NodePort
+  selector:
+    app.kubernetes.io/instance: prometheus-community
+    app.kubernetes.io/name: grafana  # Match the correct label for Grafana
+  ports:
+    - port: 80
+      targetPort: 3000
+      nodePort: 32324
